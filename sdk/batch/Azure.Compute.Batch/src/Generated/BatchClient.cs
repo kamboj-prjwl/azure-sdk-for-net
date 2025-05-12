@@ -6026,7 +6026,7 @@ namespace Azure.Compute.Batch
         /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> You can restart a Compute Node only if it is in an idle or running state. </remarks>
-        internal virtual async Task<Response> RebootNodeInternalAsync(string poolId, string nodeId, BatchNodeRebootKinds parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response> RebootNodeInternalAsync(string poolId, string nodeId, BatchNodeRebootOptions parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
             Argument.AssertNotNullOrEmpty(nodeId, nameof(nodeId));
@@ -6051,7 +6051,7 @@ namespace Azure.Compute.Batch
         /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> You can restart a Compute Node only if it is in an idle or running state. </remarks>
-        internal virtual Response RebootNodeInternal(string poolId, string nodeId, BatchNodeRebootKinds parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        internal virtual Response RebootNodeInternal(string poolId, string nodeId, BatchNodeRebootOptions parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
             Argument.AssertNotNullOrEmpty(nodeId, nameof(nodeId));
@@ -6072,7 +6072,7 @@ namespace Azure.Compute.Batch
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="RebootNodeInternalAsync(string,string,BatchNodeRebootKinds,TimeSpan?,DateTimeOffset?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="RebootNodeInternalAsync(string,string,BatchNodeRebootOptions,TimeSpan?,DateTimeOffset?,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -6120,7 +6120,7 @@ namespace Azure.Compute.Batch
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="RebootNodeInternal(string,string,BatchNodeRebootKinds,TimeSpan?,DateTimeOffset?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="RebootNodeInternal(string,string,BatchNodeRebootOptions,TimeSpan?,DateTimeOffset?,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.Compute.Batch
 {
     /// <summary> Parameters for rebooting an Azure Batch Compute Node. </summary>
-    public partial class BatchNodeRebootKinds
+    public partial class BatchNodeRebootOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,15 +45,15 @@ namespace Azure.Compute.Batch
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="BatchNodeRebootKinds"/>. </summary>
-        public BatchNodeRebootKinds()
+        /// <summary> Initializes a new instance of <see cref="BatchNodeRebootOptions"/>. </summary>
+        public BatchNodeRebootOptions()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="BatchNodeRebootKinds"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="BatchNodeRebootOptions"/>. </summary>
         /// <param name="nodeRebootKind"> When to reboot the Compute Node and what to do with currently running Tasks. The default value is requeue. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BatchNodeRebootKinds(BatchNodeRebootKind? nodeRebootKind, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BatchNodeRebootOptions(BatchNodeRebootKind? nodeRebootKind, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             NodeRebootKind = nodeRebootKind;
             _serializedAdditionalRawData = serializedAdditionalRawData;

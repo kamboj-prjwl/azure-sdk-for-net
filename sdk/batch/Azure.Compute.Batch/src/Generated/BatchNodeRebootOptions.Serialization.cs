@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Compute.Batch
 {
-    public partial class BatchNodeRebootKinds : IUtf8JsonSerializable, IJsonModel<BatchNodeRebootKinds>
+    public partial class BatchNodeRebootOptions : IUtf8JsonSerializable, IJsonModel<BatchNodeRebootOptions>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchNodeRebootKinds>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchNodeRebootOptions>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BatchNodeRebootKinds>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BatchNodeRebootOptions>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.Compute.Batch
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootKinds>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootOptions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BatchNodeRebootKinds)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BatchNodeRebootOptions)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsDefined(NodeRebootKind))
@@ -56,19 +56,19 @@ namespace Azure.Compute.Batch
             }
         }
 
-        BatchNodeRebootKinds IJsonModel<BatchNodeRebootKinds>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        BatchNodeRebootOptions IJsonModel<BatchNodeRebootOptions>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootKinds>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootOptions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BatchNodeRebootKinds)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BatchNodeRebootOptions)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBatchNodeRebootKinds(document.RootElement, options);
+            return DeserializeBatchNodeRebootOptions(document.RootElement, options);
         }
 
-        internal static BatchNodeRebootKinds DeserializeBatchNodeRebootKinds(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static BatchNodeRebootOptions DeserializeBatchNodeRebootOptions(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -96,46 +96,46 @@ namespace Azure.Compute.Batch
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new BatchNodeRebootKinds(nodeRebootOption, serializedAdditionalRawData);
+            return new BatchNodeRebootOptions(nodeRebootOption, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BatchNodeRebootKinds>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<BatchNodeRebootOptions>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootKinds>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootOptions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureComputeBatchContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BatchNodeRebootKinds)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BatchNodeRebootOptions)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BatchNodeRebootKinds IPersistableModel<BatchNodeRebootKinds>.Create(BinaryData data, ModelReaderWriterOptions options)
+        BatchNodeRebootOptions IPersistableModel<BatchNodeRebootOptions>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootKinds>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchNodeRebootOptions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBatchNodeRebootKinds(document.RootElement, options);
+                        return DeserializeBatchNodeRebootOptions(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BatchNodeRebootKinds)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BatchNodeRebootOptions)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BatchNodeRebootKinds>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BatchNodeRebootOptions>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static BatchNodeRebootKinds FromResponse(Response response)
+        internal static BatchNodeRebootOptions FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeBatchNodeRebootKinds(document.RootElement);
+            return DeserializeBatchNodeRebootOptions(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

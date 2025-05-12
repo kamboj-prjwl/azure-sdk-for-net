@@ -1553,7 +1553,7 @@ namespace Azure.Compute.Batch
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> You can restart a Compute Node only if it is in an idle or running state. </remarks>
         /// <returns> The RebootNodeOperation object to allow for polling of operation status. </returns>
-        public virtual async Task<RebootNodeOperation> RebootNodeAsync(string poolId, string nodeId, BatchNodeRebootKinds parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual async Task<RebootNodeOperation> RebootNodeAsync(string poolId, string nodeId, BatchNodeRebootOptions parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.RebootNode");
             scope.Start();
@@ -1584,7 +1584,7 @@ namespace Azure.Compute.Batch
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> You can restart a Compute Node only if it is in an idle or running state. </remarks>
         /// <returns> The RebootNodeOperation object to allow for polling of operation status. </returns>
-        public virtual RebootNodeOperation RebootNode(string poolId, string nodeId, BatchNodeRebootKinds parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual RebootNodeOperation RebootNode(string poolId, string nodeId, BatchNodeRebootOptions parameters = null, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.RebootNode");
             scope.Start();
