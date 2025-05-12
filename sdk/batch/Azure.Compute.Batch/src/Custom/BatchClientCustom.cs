@@ -838,7 +838,6 @@ namespace Azure.Compute.Batch
             {
                 Response response = await DeleteCertificateInternalAsync(thumbprintAlgorithm, thumbprint, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
                 return new DeleteCertificateOperation(this, thumbprintAlgorithm, thumbprint, response);
-                ;
             }
             catch (Exception e)
             {
@@ -1227,7 +1226,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Disables the specified Job, preventing new Tasks from running. </summary>
         /// <param name="jobId"> The ID of the Job to disable. </param>
-        /// <param name="content"> The options to use for disabling the Job. </param>
+        /// <param name="disableOptions"> The options to use for disabling the Job. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1236,7 +1235,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="disableOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// The Batch Service immediately moves the Job to the disabling state. Batch then
@@ -1249,7 +1248,7 @@ namespace Azure.Compute.Batch
         /// the request fails with status code 409.
         /// </remarks>
         /// <returns> The DisableJobOperation object to allow for polling of operation status. </returns>
-        public virtual async Task<DisableJobOperation> DisableJobAsync(string jobId, BatchJobDisableOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<DisableJobOperation> DisableJobAsync(string jobId, BatchJobDisableOptions disableOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.DisableJob");
             scope.Start();
@@ -1257,7 +1256,7 @@ namespace Azure.Compute.Batch
             {   // first get the job to be used for the TerminateJobOperation
                 BatchJob job = await GetJobAsync(jobId, timeOutInSeconds: timeOutInSeconds, ocpDate: ocpDate, requestConditions: requestConditions).ConfigureAwait(false);
 
-                Response response = await DisableJobInternalAsync(jobId, content, timeOutInSeconds, ocpDate, requestConditions, cancellationToken).ConfigureAwait(false);
+                Response response = await DisableJobInternalAsync(jobId, disableOptions, timeOutInSeconds, ocpDate, requestConditions, cancellationToken).ConfigureAwait(false);
                 ;
                 return new DisableJobOperation(this, jobId, response, job.CreationTime);
             }
@@ -1270,7 +1269,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Disables the specified Job, preventing new Tasks from running. </summary>
         /// <param name="jobId"> The ID of the Job to disable. </param>
-        /// <param name="content"> The options to use for disabling the Job. </param>
+        /// <param name="disableOptions"> The options to use for disabling the Job. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1279,7 +1278,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="disableOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// The Batch Service immediately moves the Job to the disabling state. Batch then
@@ -1292,7 +1291,7 @@ namespace Azure.Compute.Batch
         /// the request fails with status code 409.
         /// </remarks>
         /// <returns> The DisableJobOperation object to allow for polling of operation status. </returns>
-        public virtual DisableJobOperation DisableJob(string jobId, BatchJobDisableOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual DisableJobOperation DisableJob(string jobId, BatchJobDisableOptions disableOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.DisableJob");
             scope.Start();
@@ -1300,7 +1299,7 @@ namespace Azure.Compute.Batch
             {   // first get the job to be used for the TerminateJobOperation
                 BatchJob job = GetJob(jobId, timeOutInSeconds: timeOutInSeconds, ocpDate: ocpDate, requestConditions: requestConditions);
 
-                Response response = DisableJobInternal(jobId, content, timeOutInSeconds, ocpDate, requestConditions, cancellationToken);
+                Response response = DisableJobInternal(jobId, disableOptions, timeOutInSeconds, ocpDate, requestConditions, cancellationToken);
                 ;
                 return new DisableJobOperation(this, jobId, response, job.CreationTime);
             }
@@ -1673,7 +1672,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Changes the number of Compute Nodes that are assigned to a Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for resizing the pool. </param>
+        /// <param name="resizeOptions"> The options to use for resizing the pool. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1682,7 +1681,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="resizeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// You can only resize a Pool when its allocation state is steady. If the Pool is
@@ -1694,13 +1693,13 @@ namespace Azure.Compute.Batch
         /// Nodes, use the Pool remove Compute Nodes API instead.
         /// <returns> The ResizePoolOperation object to allow for polling of operation status. </returns>
         /// </remarks>
-        public virtual async Task<ResizePoolOperation> ResizePoolAsync(string poolId, BatchPoolResizeOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ResizePoolOperation> ResizePoolAsync(string poolId, BatchPoolResizeOptions resizeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.ResizePool");
             scope.Start();
             try
             {
-                Response response = await ResizePoolInternalAsync(poolId, content, timeOutInSeconds, ocpDate, requestConditions, cancellationToken).ConfigureAwait(false);
+                Response response = await ResizePoolInternalAsync(poolId, resizeOptions, timeOutInSeconds, ocpDate, requestConditions, cancellationToken).ConfigureAwait(false);
                 return new ResizePoolOperation(this, resizeId: poolId, response);
             }
             catch (Exception e)
@@ -1712,7 +1711,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Changes the number of Compute Nodes that are assigned to a Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for resizing the pool. </param>
+        /// <param name="resizeOptions"> The options to use for resizing the pool. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1721,7 +1720,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="resizeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// You can only resize a Pool when its allocation state is steady. If the Pool is
@@ -1733,13 +1732,13 @@ namespace Azure.Compute.Batch
         /// Nodes, use the Pool remove Compute Nodes API instead.
         /// <returns> The ResizePoolOperation object to allow for polling of operation status. </returns>
         /// </remarks>
-        public virtual ResizePoolOperation ResizePool(string poolId, BatchPoolResizeOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual ResizePoolOperation ResizePool(string poolId, BatchPoolResizeOptions resizeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.ResizePool");
             scope.Start();
             try
             {
-                Response response = ResizePoolInternal(poolId, content, timeOutInSeconds, ocpDate, requestConditions, cancellationToken);
+                Response response = ResizePoolInternal(poolId, resizeOptions, timeOutInSeconds, ocpDate, requestConditions, cancellationToken);
                 return new ResizePoolOperation(this, resizeId: poolId, response);
             }
             catch (Exception e)
@@ -1831,7 +1830,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Removes Compute Nodes from the specified Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for removing the node. </param>
+        /// <param name="removeOptions"> The options to use for removing the node. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1840,7 +1839,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="removeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This operation can only run when the allocation state of the Pool is steady.
@@ -1848,13 +1847,13 @@ namespace Azure.Compute.Batch
         /// Each request may remove up to 100 nodes.
         /// </remarks>
         /// <returns> The RemoveNodesOperation object to allow for polling of operation status. </returns>
-        public virtual async Task<RemoveNodesOperation> RemoveNodesAsync(string poolId, BatchNodeRemoveOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<RemoveNodesOperation> RemoveNodesAsync(string poolId, BatchNodeRemoveOptions removeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.RemoveNodes");
             scope.Start();
             try
             {
-                Response response = await RemoveNodesInternalAsync(poolId, content, timeOutInSeconds, ocpDate, requestConditions).ConfigureAwait(false);
+                Response response = await RemoveNodesInternalAsync(poolId, removeOptions, timeOutInSeconds, ocpDate, requestConditions).ConfigureAwait(false);
                 return new RemoveNodesOperation(this, poolId, response);
             }
             catch (Exception e)
@@ -1866,7 +1865,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Removes Compute Nodes from the specified Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for removing the node. </param>
+        /// <param name="removeOptions"> The options to use for removing the node. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1875,7 +1874,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="removeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This operation can only run when the allocation state of the Pool is steady.
@@ -1883,13 +1882,13 @@ namespace Azure.Compute.Batch
         /// Each request may remove up to 100 nodes.
         /// </remarks>
         /// <returns> The RemoveNodesOperation object to allow for polling of operation status. </returns>
-        public virtual RemoveNodesOperation RemoveNodes(string poolId, BatchNodeRemoveOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual RemoveNodesOperation RemoveNodes(string poolId, BatchNodeRemoveOptions removeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             using var scope = ClientDiagnostics.CreateScope("BatchClient.RemoveNodes");
             scope.Start();
             try
             {
-                Response response = RemoveNodesInternal(poolId, content, timeOutInSeconds, ocpDate, requestConditions);
+                Response response = RemoveNodesInternal(poolId, removeOptions, timeOutInSeconds, ocpDate, requestConditions);
                 return new RemoveNodesOperation(this, poolId, response);
             }
             catch (Exception e)

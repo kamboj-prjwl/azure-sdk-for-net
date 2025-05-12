@@ -738,7 +738,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Enables automatic scaling for a Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for enabling automatic scaling. </param>
+        /// <param name="enableAutoScaleOptions"> The options to use for enabling automatic scaling. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -747,7 +747,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="enableAutoScaleOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// You cannot enable automatic scaling on a Pool if a resize operation is in
@@ -758,20 +758,20 @@ namespace Azure.Compute.Batch
         /// more than once every 30 seconds.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='EnablePoolAutoScaleAsync(string,BatchPoolEnableAutoScaleOptions,TimeSpan?,DateTimeOffset?,RequestConditions,CancellationToken)']/*" />
-        public virtual async Task<Response> EnablePoolAutoScaleAsync(string poolId, BatchPoolEnableAutoScaleOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> EnablePoolAutoScaleAsync(string poolId, BatchPoolEnableAutoScaleOptions enableAutoScaleOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(enableAutoScaleOptions, nameof(enableAutoScaleOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = enableAutoScaleOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await EnablePoolAutoScaleAsync(poolId, content0, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
+            Response response = await EnablePoolAutoScaleAsync(poolId, content, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
             return response;
         }
 
         /// <summary> Enables automatic scaling for a Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for enabling automatic scaling. </param>
+        /// <param name="enableAutoScaleOptions"> The options to use for enabling automatic scaling. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -780,7 +780,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="enableAutoScaleOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// You cannot enable automatic scaling on a Pool if a resize operation is in
@@ -791,14 +791,14 @@ namespace Azure.Compute.Batch
         /// more than once every 30 seconds.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='EnablePoolAutoScale(string,BatchPoolEnableAutoScaleOptions,TimeSpan?,DateTimeOffset?,RequestConditions,CancellationToken)']/*" />
-        public virtual Response EnablePoolAutoScale(string poolId, BatchPoolEnableAutoScaleOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        public virtual Response EnablePoolAutoScale(string poolId, BatchPoolEnableAutoScaleOptions enableAutoScaleOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(enableAutoScaleOptions, nameof(enableAutoScaleOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = enableAutoScaleOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = EnablePoolAutoScale(poolId, content0, timeOutInSeconds, ocpDate, requestConditions, context);
+            Response response = EnablePoolAutoScale(poolId, content, timeOutInSeconds, ocpDate, requestConditions, context);
             return response;
         }
 
@@ -902,7 +902,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Gets the result of evaluating an automatic scaling formula on the Pool. </summary>
         /// <param name="poolId"> The ID of the Pool on which to evaluate the automatic scaling formula. </param>
-        /// <param name="content"> The options to use for evaluating the automatic scaling formula. </param>
+        /// <param name="evaluateAutoScaleOptions"> The options to use for evaluating the automatic scaling formula. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -910,7 +910,7 @@ namespace Azure.Compute.Batch
         /// directly.
         /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="evaluateAutoScaleOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This API is primarily for validating an autoscale formula, as it simply returns
@@ -918,20 +918,20 @@ namespace Azure.Compute.Batch
         /// scaling enabled in order to evaluate a formula.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='EvaluatePoolAutoScaleAsync(string,BatchPoolEvaluateAutoScaleOptions,TimeSpan?,DateTimeOffset?,CancellationToken)']/*" />
-        public virtual async Task<Response<AutoScaleRun>> EvaluatePoolAutoScaleAsync(string poolId, BatchPoolEvaluateAutoScaleOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AutoScaleRun>> EvaluatePoolAutoScaleAsync(string poolId, BatchPoolEvaluateAutoScaleOptions evaluateAutoScaleOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(evaluateAutoScaleOptions, nameof(evaluateAutoScaleOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = evaluateAutoScaleOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await EvaluatePoolAutoScaleAsync(poolId, content0, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
+            Response response = await EvaluatePoolAutoScaleAsync(poolId, content, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
             return Response.FromValue(AutoScaleRun.FromResponse(response), response);
         }
 
         /// <summary> Gets the result of evaluating an automatic scaling formula on the Pool. </summary>
         /// <param name="poolId"> The ID of the Pool on which to evaluate the automatic scaling formula. </param>
-        /// <param name="content"> The options to use for evaluating the automatic scaling formula. </param>
+        /// <param name="evaluateAutoScaleOptions"> The options to use for evaluating the automatic scaling formula. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -939,7 +939,7 @@ namespace Azure.Compute.Batch
         /// directly.
         /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="evaluateAutoScaleOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This API is primarily for validating an autoscale formula, as it simply returns
@@ -947,14 +947,14 @@ namespace Azure.Compute.Batch
         /// scaling enabled in order to evaluate a formula.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='EvaluatePoolAutoScale(string,BatchPoolEvaluateAutoScaleOptions,TimeSpan?,DateTimeOffset?,CancellationToken)']/*" />
-        public virtual Response<AutoScaleRun> EvaluatePoolAutoScale(string poolId, BatchPoolEvaluateAutoScaleOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual Response<AutoScaleRun> EvaluatePoolAutoScale(string poolId, BatchPoolEvaluateAutoScaleOptions evaluateAutoScaleOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(evaluateAutoScaleOptions, nameof(evaluateAutoScaleOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = evaluateAutoScaleOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = EvaluatePoolAutoScale(poolId, content0, timeOutInSeconds, ocpDate, context);
+            Response response = EvaluatePoolAutoScale(poolId, content, timeOutInSeconds, ocpDate, context);
             return Response.FromValue(AutoScaleRun.FromResponse(response), response);
         }
 
@@ -1056,7 +1056,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Changes the number of Compute Nodes that are assigned to a Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for resizing the pool. </param>
+        /// <param name="resizeOptions"> The options to use for resizing the pool. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1065,7 +1065,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="resizeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// You can only resize a Pool when its allocation state is steady. If the Pool is
@@ -1076,20 +1076,20 @@ namespace Azure.Compute.Batch
         /// Batch service chooses which Compute Nodes to remove. To remove specific Compute
         /// Nodes, use the Pool remove Compute Nodes API instead.
         /// </remarks>
-        internal virtual async Task<Response> ResizePoolInternalAsync(string poolId, BatchPoolResizeOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response> ResizePoolInternalAsync(string poolId, BatchPoolResizeOptions resizeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(resizeOptions, nameof(resizeOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = resizeOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await ResizePoolInternalAsync(poolId, content0, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
+            Response response = await ResizePoolInternalAsync(poolId, content, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
             return response;
         }
 
         /// <summary> Changes the number of Compute Nodes that are assigned to a Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for resizing the pool. </param>
+        /// <param name="resizeOptions"> The options to use for resizing the pool. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1098,7 +1098,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="resizeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// You can only resize a Pool when its allocation state is steady. If the Pool is
@@ -1109,14 +1109,14 @@ namespace Azure.Compute.Batch
         /// Batch service chooses which Compute Nodes to remove. To remove specific Compute
         /// Nodes, use the Pool remove Compute Nodes API instead.
         /// </remarks>
-        internal virtual Response ResizePoolInternal(string poolId, BatchPoolResizeOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        internal virtual Response ResizePoolInternal(string poolId, BatchPoolResizeOptions resizeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(resizeOptions, nameof(resizeOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = resizeOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = ResizePoolInternal(poolId, content0, timeOutInSeconds, ocpDate, requestConditions, context);
+            Response response = ResizePoolInternal(poolId, content, timeOutInSeconds, ocpDate, requestConditions, context);
             return response;
         }
 
@@ -1456,7 +1456,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Removes Compute Nodes from the specified Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for removing the node. </param>
+        /// <param name="removeOptions"> The options to use for removing the node. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1465,27 +1465,27 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="removeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This operation can only run when the allocation state of the Pool is steady.
         /// When this operation runs, the allocation state changes from steady to resizing.
         /// Each request may remove up to 100 nodes.
         /// </remarks>
-        internal virtual async Task<Response> RemoveNodesInternalAsync(string poolId, BatchNodeRemoveOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response> RemoveNodesInternalAsync(string poolId, BatchNodeRemoveOptions removeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(removeOptions, nameof(removeOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = removeOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await RemoveNodesInternalAsync(poolId, content0, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
+            Response response = await RemoveNodesInternalAsync(poolId, content, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
             return response;
         }
 
         /// <summary> Removes Compute Nodes from the specified Pool. </summary>
         /// <param name="poolId"> The ID of the Pool to get. </param>
-        /// <param name="content"> The options to use for removing the node. </param>
+        /// <param name="removeOptions"> The options to use for removing the node. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -1494,21 +1494,21 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/> or <paramref name="removeOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This operation can only run when the allocation state of the Pool is steady.
         /// When this operation runs, the allocation state changes from steady to resizing.
         /// Each request may remove up to 100 nodes.
         /// </remarks>
-        internal virtual Response RemoveNodesInternal(string poolId, BatchNodeRemoveOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        internal virtual Response RemoveNodesInternal(string poolId, BatchNodeRemoveOptions removeOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(removeOptions, nameof(removeOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = removeOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = RemoveNodesInternal(poolId, content0, timeOutInSeconds, ocpDate, requestConditions, context);
+            Response response = RemoveNodesInternal(poolId, content, timeOutInSeconds, ocpDate, requestConditions, context);
             return response;
         }
 
@@ -2088,7 +2088,7 @@ namespace Azure.Compute.Batch
 
         /// <summary> Disables the specified Job, preventing new Tasks from running. </summary>
         /// <param name="jobId"> The ID of the Job to disable. </param>
-        /// <param name="content"> The options to use for disabling the Job. </param>
+        /// <param name="disableOptions"> The options to use for disabling the Job. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -2097,7 +2097,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="disableOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// The Batch Service immediately moves the Job to the disabling state. Batch then
@@ -2109,20 +2109,20 @@ namespace Azure.Compute.Batch
         /// disable a Job that is in any state other than active, disabling, or disabled,
         /// the request fails with status code 409.
         /// </remarks>
-        internal virtual async Task<Response> DisableJobInternalAsync(string jobId, BatchJobDisableOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response> DisableJobInternalAsync(string jobId, BatchJobDisableOptions disableOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(disableOptions, nameof(disableOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = disableOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await DisableJobInternalAsync(jobId, content0, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
+            Response response = await DisableJobInternalAsync(jobId, content, timeOutInSeconds, ocpDate, requestConditions, context).ConfigureAwait(false);
             return response;
         }
 
         /// <summary> Disables the specified Job, preventing new Tasks from running. </summary>
         /// <param name="jobId"> The ID of the Job to disable. </param>
-        /// <param name="content"> The options to use for disabling the Job. </param>
+        /// <param name="disableOptions"> The options to use for disabling the Job. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -2131,7 +2131,7 @@ namespace Azure.Compute.Batch
         /// </param>
         /// <param name="requestConditions"> The content to send as the request conditions of the request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="disableOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// The Batch Service immediately moves the Job to the disabling state. Batch then
@@ -2143,14 +2143,14 @@ namespace Azure.Compute.Batch
         /// disable a Job that is in any state other than active, disabling, or disabled,
         /// the request fails with status code 409.
         /// </remarks>
-        internal virtual Response DisableJobInternal(string jobId, BatchJobDisableOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
+        internal virtual Response DisableJobInternal(string jobId, BatchJobDisableOptions disableOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, RequestConditions requestConditions = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(disableOptions, nameof(disableOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = disableOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = DisableJobInternal(jobId, content0, timeOutInSeconds, ocpDate, requestConditions, context);
+            Response response = DisableJobInternal(jobId, content, timeOutInSeconds, ocpDate, requestConditions, context);
             return response;
         }
 
@@ -5698,7 +5698,7 @@ namespace Azure.Compute.Batch
         /// <param name="poolId"> The ID of the Pool that contains the Compute Node. </param>
         /// <param name="nodeId"> The ID of the machine on which you want to update a user Account. </param>
         /// <param name="userName"> The name of the user Account to update. </param>
-        /// <param name="content"> The options to use for updating the user. </param>
+        /// <param name="updateOptions"> The options to use for updating the user. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -5706,7 +5706,7 @@ namespace Azure.Compute.Batch
         /// directly.
         /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/>, <paramref name="userName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/>, <paramref name="userName"/> or <paramref name="updateOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/>, <paramref name="nodeId"/> or <paramref name="userName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This operation replaces of all the updatable properties of the Account. For
@@ -5715,16 +5715,16 @@ namespace Azure.Compute.Batch
         /// Account on a Compute Node only when it is in the idle or running state.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='ReplaceNodeUserAsync(string,string,string,BatchNodeUserUpdateOptions,TimeSpan?,DateTimeOffset?,CancellationToken)']/*" />
-        public virtual async Task<Response> ReplaceNodeUserAsync(string poolId, string nodeId, string userName, BatchNodeUserUpdateOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> ReplaceNodeUserAsync(string poolId, string nodeId, string userName, BatchNodeUserUpdateOptions updateOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
             Argument.AssertNotNullOrEmpty(nodeId, nameof(nodeId));
             Argument.AssertNotNullOrEmpty(userName, nameof(userName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(updateOptions, nameof(updateOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = updateOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await ReplaceNodeUserAsync(poolId, nodeId, userName, content0, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
+            Response response = await ReplaceNodeUserAsync(poolId, nodeId, userName, content, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
             return response;
         }
 
@@ -5732,7 +5732,7 @@ namespace Azure.Compute.Batch
         /// <param name="poolId"> The ID of the Pool that contains the Compute Node. </param>
         /// <param name="nodeId"> The ID of the machine on which you want to update a user Account. </param>
         /// <param name="userName"> The name of the user Account to update. </param>
-        /// <param name="content"> The options to use for updating the user. </param>
+        /// <param name="updateOptions"> The options to use for updating the user. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -5740,7 +5740,7 @@ namespace Azure.Compute.Batch
         /// directly.
         /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/>, <paramref name="userName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/>, <paramref name="userName"/> or <paramref name="updateOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/>, <paramref name="nodeId"/> or <paramref name="userName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This operation replaces of all the updatable properties of the Account. For
@@ -5749,16 +5749,16 @@ namespace Azure.Compute.Batch
         /// Account on a Compute Node only when it is in the idle or running state.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='ReplaceNodeUser(string,string,string,BatchNodeUserUpdateOptions,TimeSpan?,DateTimeOffset?,CancellationToken)']/*" />
-        public virtual Response ReplaceNodeUser(string poolId, string nodeId, string userName, BatchNodeUserUpdateOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual Response ReplaceNodeUser(string poolId, string nodeId, string userName, BatchNodeUserUpdateOptions updateOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
             Argument.AssertNotNullOrEmpty(nodeId, nameof(nodeId));
             Argument.AssertNotNullOrEmpty(userName, nameof(userName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(updateOptions, nameof(updateOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = updateOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = ReplaceNodeUser(poolId, nodeId, userName, content0, timeOutInSeconds, ocpDate, context);
+            Response response = ReplaceNodeUser(poolId, nodeId, userName, content, timeOutInSeconds, ocpDate, context);
             return response;
         }
 
@@ -6947,7 +6947,7 @@ namespace Azure.Compute.Batch
         /// The ID of the Compute Node for which you want to get the Remote Desktop
         /// Protocol file.
         /// </param>
-        /// <param name="content"> The Azure Batch service log files upload options. </param>
+        /// <param name="uploadOptions"> The Azure Batch service log files upload options. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -6955,7 +6955,7 @@ namespace Azure.Compute.Batch
         /// directly.
         /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/> or <paramref name="uploadOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This is for gathering Azure Batch service log files in an automated fashion
@@ -6964,15 +6964,15 @@ namespace Azure.Compute.Batch
         /// support to aid in debugging issues with the Batch service.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='UploadNodeLogsAsync(string,string,UploadBatchServiceLogsOptions,TimeSpan?,DateTimeOffset?,CancellationToken)']/*" />
-        public virtual async Task<Response<UploadBatchServiceLogsResult>> UploadNodeLogsAsync(string poolId, string nodeId, UploadBatchServiceLogsOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<UploadBatchServiceLogsResult>> UploadNodeLogsAsync(string poolId, string nodeId, UploadBatchServiceLogsOptions uploadOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
             Argument.AssertNotNullOrEmpty(nodeId, nameof(nodeId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(uploadOptions, nameof(uploadOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = uploadOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await UploadNodeLogsAsync(poolId, nodeId, content0, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
+            Response response = await UploadNodeLogsAsync(poolId, nodeId, content, timeOutInSeconds, ocpDate, context).ConfigureAwait(false);
             return Response.FromValue(UploadBatchServiceLogsResult.FromResponse(response), response);
         }
 
@@ -6985,7 +6985,7 @@ namespace Azure.Compute.Batch
         /// The ID of the Compute Node for which you want to get the Remote Desktop
         /// Protocol file.
         /// </param>
-        /// <param name="content"> The Azure Batch service log files upload options. </param>
+        /// <param name="uploadOptions"> The Azure Batch service log files upload options. </param>
         /// <param name="timeOutInSeconds"> The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.". </param>
         /// <param name="ocpDate">
         /// The time the request was issued. Client libraries typically set this to the
@@ -6993,7 +6993,7 @@ namespace Azure.Compute.Batch
         /// directly.
         /// </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="poolId"/>, <paramref name="nodeId"/> or <paramref name="uploadOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="poolId"/> or <paramref name="nodeId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks>
         /// This is for gathering Azure Batch service log files in an automated fashion
@@ -7002,15 +7002,15 @@ namespace Azure.Compute.Batch
         /// support to aid in debugging issues with the Batch service.
         /// </remarks>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='UploadNodeLogs(string,string,UploadBatchServiceLogsOptions,TimeSpan?,DateTimeOffset?,CancellationToken)']/*" />
-        public virtual Response<UploadBatchServiceLogsResult> UploadNodeLogs(string poolId, string nodeId, UploadBatchServiceLogsOptions content, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
+        public virtual Response<UploadBatchServiceLogsResult> UploadNodeLogs(string poolId, string nodeId, UploadBatchServiceLogsOptions uploadOptions, TimeSpan? timeOutInSeconds = null, DateTimeOffset? ocpDate = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(poolId, nameof(poolId));
             Argument.AssertNotNullOrEmpty(nodeId, nameof(nodeId));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(uploadOptions, nameof(uploadOptions));
 
-            using RequestContent content0 = content.ToRequestContent();
+            using RequestContent content = uploadOptions.ToRequestContent();
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = UploadNodeLogs(poolId, nodeId, content0, timeOutInSeconds, ocpDate, context);
+            Response response = UploadNodeLogs(poolId, nodeId, content, timeOutInSeconds, ocpDate, context);
             return Response.FromValue(UploadBatchServiceLogsResult.FromResponse(response), response);
         }
 

@@ -1944,12 +1944,12 @@ Settings =
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchPoolEnableAutoScaleOptions content = new BatchPoolEnableAutoScaleOptions
+            BatchPoolEnableAutoScaleOptions enableAutoScaleOptions = new BatchPoolEnableAutoScaleOptions
             {
                 AutoScaleFormula = "$TargetDedicated=0",
                 AutoScaleEvaluationInterval = XmlConvert.ToTimeSpan("PT8M"),
             };
-            Response response = client.EnablePoolAutoScale("poolId", content);
+            Response response = client.EnablePoolAutoScale("poolId", enableAutoScaleOptions);
         }
 
         [Test]
@@ -1960,12 +1960,12 @@ Settings =
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchPoolEnableAutoScaleOptions content = new BatchPoolEnableAutoScaleOptions
+            BatchPoolEnableAutoScaleOptions enableAutoScaleOptions = new BatchPoolEnableAutoScaleOptions
             {
                 AutoScaleFormula = "$TargetDedicated=0",
                 AutoScaleEvaluationInterval = XmlConvert.ToTimeSpan("PT8M"),
             };
-            Response response = await client.EnablePoolAutoScaleAsync("poolId", content);
+            Response response = await client.EnablePoolAutoScaleAsync("poolId", enableAutoScaleOptions);
         }
 
         [Test]
@@ -2012,8 +2012,8 @@ Settings =
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchPoolEvaluateAutoScaleOptions content = new BatchPoolEvaluateAutoScaleOptions("$TargetDedicated=1");
-            Response<AutoScaleRun> response = client.EvaluatePoolAutoScale("poolId", content);
+            BatchPoolEvaluateAutoScaleOptions evaluateAutoScaleOptions = new BatchPoolEvaluateAutoScaleOptions("$TargetDedicated=1");
+            Response<AutoScaleRun> response = client.EvaluatePoolAutoScale("poolId", evaluateAutoScaleOptions);
         }
 
         [Test]
@@ -2024,8 +2024,8 @@ Settings =
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchPoolEvaluateAutoScaleOptions content = new BatchPoolEvaluateAutoScaleOptions("$TargetDedicated=1");
-            Response<AutoScaleRun> response = await client.EvaluatePoolAutoScaleAsync("poolId", content);
+            BatchPoolEvaluateAutoScaleOptions evaluateAutoScaleOptions = new BatchPoolEvaluateAutoScaleOptions("$TargetDedicated=1");
+            Response<AutoScaleRun> response = await client.EvaluatePoolAutoScaleAsync("poolId", evaluateAutoScaleOptions);
         }
 
         [Test]
@@ -3034,7 +3034,7 @@ Value = "myvalue",
             {
                 thumbprintAlgorithm = "sha1",
                 thumbprint = "0123456789abcdef0123456789abcdef01234567",
-                data = "#####...",
+                data = "U3dhZ2dlciByb2Nrcw==",
                 certificateFormat = "pfx",
                 password = "<ExamplePassword>",
             });
@@ -3055,7 +3055,7 @@ Value = "myvalue",
             {
                 thumbprintAlgorithm = "sha1",
                 thumbprint = "0123456789abcdef0123456789abcdef01234567",
-                data = "#####...",
+                data = "U3dhZ2dlciByb2Nrcw==",
                 certificateFormat = "pfx",
                 password = "<ExamplePassword>",
             });
@@ -3072,7 +3072,7 @@ Value = "myvalue",
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchCertificate certificate = new BatchCertificate("0123456789abcdef0123456789abcdef01234567", "sha1", BinaryData.FromObjectAsJson("#####..."))
+            BatchCertificate certificate = new BatchCertificate("0123456789abcdef0123456789abcdef01234567", "sha1", BinaryData.FromObjectAsJson("U3dhZ2dlciByb2Nrcw=="))
             {
                 CertificateFormat = BatchCertificateFormat.Pfx,
                 Password = "<ExamplePassword>",
@@ -3088,7 +3088,7 @@ Value = "myvalue",
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchCertificate certificate = new BatchCertificate("0123456789abcdef0123456789abcdef01234567", "sha1", BinaryData.FromObjectAsJson("#####..."))
+            BatchCertificate certificate = new BatchCertificate("0123456789abcdef0123456789abcdef01234567", "sha1", BinaryData.FromObjectAsJson("U3dhZ2dlciByb2Nrcw=="))
             {
                 CertificateFormat = BatchCertificateFormat.Pfx,
                 Password = "<ExamplePassword>",
@@ -5612,12 +5612,12 @@ new BatchTaskCreateOptions("simple3", "cmd /c dir /s")
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchNodeUserUpdateOptions content = new BatchNodeUserUpdateOptions
+            BatchNodeUserUpdateOptions updateOptions = new BatchNodeUserUpdateOptions
             {
                 Password = "12345",
                 ExpiryTime = DateTimeOffset.Parse("2016-11-27T00:45:48.7320857Z"),
             };
-            Response response = client.ReplaceNodeUser("poolId", "tvm-1695681911_1-20161121t182739z", "userName", content);
+            Response response = client.ReplaceNodeUser("poolId", "tvm-1695681911_1-20161121t182739z", "userName", updateOptions);
         }
 
         [Test]
@@ -5628,12 +5628,12 @@ new BatchTaskCreateOptions("simple3", "cmd /c dir /s")
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            BatchNodeUserUpdateOptions content = new BatchNodeUserUpdateOptions
+            BatchNodeUserUpdateOptions updateOptions = new BatchNodeUserUpdateOptions
             {
                 Password = "12345",
                 ExpiryTime = DateTimeOffset.Parse("2016-11-27T00:45:48.7320857Z"),
             };
-            Response response = await client.ReplaceNodeUserAsync("poolId", "tvm-1695681911_1-20161121t182739z", "userName", content);
+            Response response = await client.ReplaceNodeUserAsync("poolId", "tvm-1695681911_1-20161121t182739z", "userName", updateOptions);
         }
 
         [Test]
@@ -5862,8 +5862,8 @@ new BatchTaskCreateOptions("simple3", "cmd /c dir /s")
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            UploadBatchServiceLogsOptions content = new UploadBatchServiceLogsOptions(new Uri("https://somestorageacct.blob.core.windows.net/batch-compute-node-logs?se=2017-12-09T18%3A51%3A00Z&sp=w&sv=2016-05-31&sr=c&sig"), DateTimeOffset.Parse("2017-11-27T00:00:00Z"));
-            Response<UploadBatchServiceLogsResult> response = client.UploadNodeLogs("poolId", "tvm-1695681911_1-20161121t182739z", content);
+            UploadBatchServiceLogsOptions uploadOptions = new UploadBatchServiceLogsOptions(new Uri("https://somestorageacct.blob.core.windows.net/batch-compute-node-logs?se=2017-12-09T18%3A51%3A00Z&sp=w&sv=2016-05-31&sr=c&sig"), DateTimeOffset.Parse("2017-11-27T00:00:00Z"));
+            Response<UploadBatchServiceLogsResult> response = client.UploadNodeLogs("poolId", "tvm-1695681911_1-20161121t182739z", uploadOptions);
         }
 
         [Test]
@@ -5874,8 +5874,8 @@ new BatchTaskCreateOptions("simple3", "cmd /c dir /s")
             TokenCredential credential = new DefaultAzureCredential();
             BatchClient client = new BatchClient(endpoint, credential);
 
-            UploadBatchServiceLogsOptions content = new UploadBatchServiceLogsOptions(new Uri("https://somestorageacct.blob.core.windows.net/batch-compute-node-logs?se=2017-12-09T18%3A51%3A00Z&sp=w&sv=2016-05-31&sr=c&sig"), DateTimeOffset.Parse("2017-11-27T00:00:00Z"));
-            Response<UploadBatchServiceLogsResult> response = await client.UploadNodeLogsAsync("poolId", "tvm-1695681911_1-20161121t182739z", content);
+            UploadBatchServiceLogsOptions uploadOptions = new UploadBatchServiceLogsOptions(new Uri("https://somestorageacct.blob.core.windows.net/batch-compute-node-logs?se=2017-12-09T18%3A51%3A00Z&sp=w&sv=2016-05-31&sr=c&sig"), DateTimeOffset.Parse("2017-11-27T00:00:00Z"));
+            Response<UploadBatchServiceLogsResult> response = await client.UploadNodeLogsAsync("poolId", "tvm-1695681911_1-20161121t182739z", uploadOptions);
         }
 
         [Test]
