@@ -44,13 +44,14 @@ namespace Azure.Generator.Management
         /// <summary>
         /// Customize the generation output for Azure client SDK.
         /// </summary>
-        public override void Configure()
+        protected override void Configure()
         {
             base.Configure();
             // Include Azure.ResourceManager
             AddMetadataReference(MetadataReference.CreateFromFile(typeof(ArmClient).Assembly.Location));
             AddVisitor(new RestClientVisitor());
             AddVisitor(new ResourceVisitor());
+            AddVisitor(new InheritableSystemObjectModelVisitor());
         }
     }
 }
