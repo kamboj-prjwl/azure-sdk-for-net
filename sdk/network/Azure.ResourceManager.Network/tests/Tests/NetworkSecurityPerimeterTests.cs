@@ -318,7 +318,7 @@ namespace Azure.ResourceManager.Network.Tests
 
             //Create Logging configuration
             var logConfigName = "instance";
-            var createLogConfigReqData = new NetworkSecurityPerimeterLoggingConfigurationData
+            var createLogConfigReqData = new NetworkSecurityPerimeterLoggingConfigurationData()
             {
                 EnabledLogCategories = { "NspPublicInboundPerimeterRulesDenied", "NspPublicOutboundPerimeterRulesDenied" },
             };
