@@ -9,8 +9,13 @@
 
 ### Features Added
 - Added support for service version 2025-07-05.
+<<<<<<< HEAD
 - Added support for the SourceShareTokenIntent parameter to AppendBlobClient.AppendBlockFromUri(), .AppendBlockFromUriAsync(), BlockBlobClient.StageBlockFromUri(), .StageBlockFromUriAsync(), BlockBlobClient.SyncUploadFromUri(), .SyncUploadFromUriAsync(), BlobBaseClient.SyncCopyFromUri(), .SyncCopyFromUriAsync(), PageBlobClient.UploadPagesFromUri(), .UploadPagesFromUriAsync(),
 - Added PageBlobCreateOptions.PremiumPageBlobAccessTier to PageBlobClient.Create(..) overloads.
+=======
+- Added support for the `SourceShareTokenIntent` parameter to `AppendBlobClient.AppendBlockFromUri()`, `.AppendBlockFromUriAsync()`, `BlockBlobClient.StageBlockFromUri()`, `.StageBlockFromUriAsync()`, `BlockBlobClient.SyncUploadFromUri()`, `.SyncUploadFromUriAsync()`, `BlobBaseClient.SyncCopyFromUri()`, `.SyncCopyFromUriAsync()`, `PageBlobClient.UploadPagesFromUri()`, `.UploadPagesFromUriAsync()`,
+- Added `PageBlobCreateOptions.PremiumPageBlobAccessTier` to `PageBlobClient.Create(..)` overloads.
+>>>>>>> main
 
 ## 12.24.0 (2025-03-11)
 
