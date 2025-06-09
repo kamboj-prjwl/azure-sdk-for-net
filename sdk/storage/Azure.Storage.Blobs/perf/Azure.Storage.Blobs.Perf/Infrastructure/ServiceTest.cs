@@ -16,16 +16,10 @@ namespace Azure.Storage.Blobs.Perf
                 ? clientOptionsOptions.ClientOptions
                 : new BlobClientOptions();
             BlobServiceClient = new BlobServiceClient(
-                PerfTestEnvironment.Instance.StorageEndpoint,
-                PerfTestEnvironment.Instance.Credential,
-                ConfigureClientOptions(clientOptions));
+                PerfTestEnvironment.Instance.BlobStorageConnectionString, ConfigureClientOptions(clientOptions));
 
-            // Can't do shared key tests if shared key wasn't provided
-            if (PerfTestEnvironment.Instance.StorageAccountKey != null)
-            {
-                StorageSharedKeyCredential = new StorageSharedKeyCredential(
-                    PerfTestEnvironment.Instance.StorageAccountName, PerfTestEnvironment.Instance.StorageAccountKey);
-            }
+            StorageSharedKeyCredential = new StorageSharedKeyCredential(
+                PerfTestEnvironment.Instance.BlobStorageAccountName, PerfTestEnvironment.Instance.BlobStorageAccountKey);
         }
     }
 }

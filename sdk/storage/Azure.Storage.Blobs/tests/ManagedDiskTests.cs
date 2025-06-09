@@ -38,7 +38,6 @@ namespace Azure.Storage.Blobs.Tests.ManagedDisk
         }
 
         [Test]
-        [RetryOnException(5, typeof(RequestFailedException))]
         public async Task CanDiffPagesBetweenSnapshots()
         {
             // Arrange

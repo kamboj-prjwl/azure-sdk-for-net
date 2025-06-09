@@ -509,8 +509,6 @@ namespace Azure.Storage.Sas
                     PreauthorizedAgentObjectId,
                     null, // AgentObjectId - enabled only in HNS accounts
                     CorrelationId,
-                    null, // SignedKeyDelegatedUserTenantId, will be added in a future release.
-                    null, // SignedDelegatedUserObjectId, will be added in future release.
                     IPRange.ToString(),
                     SasExtensions.ToProtocolString(Protocol),
                     Version,

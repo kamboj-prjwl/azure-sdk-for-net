@@ -395,7 +395,6 @@ namespace Azure.Storage.Blobs.Specialized
                 options?.Conditions,
                 options?.ImmutabilityPolicy,
                 options?.LegalHold,
-                options?.PremiumPageBlobAccessTier,
                 async: false,
                 cancellationToken)
             .EnsureCompleted();
@@ -443,7 +442,6 @@ namespace Azure.Storage.Blobs.Specialized
                 options?.Conditions,
                 options?.ImmutabilityPolicy,
                 options?.LegalHold,
-                options?.PremiumPageBlobAccessTier,
                 async: true,
                 cancellationToken)
             .ConfigureAwait(false);
@@ -508,7 +506,6 @@ namespace Azure.Storage.Blobs.Specialized
                 conditions: conditions,
                 immutabilityPolicy: default,
                 legalHold: default,
-                premiumPageBlobAccessTier: default,
                 async: false,
                 cancellationToken: cancellationToken)
                 .EnsureCompleted();
@@ -573,7 +570,6 @@ namespace Azure.Storage.Blobs.Specialized
                 conditions: conditions,
                 immutabilityPolicy: default,
                 legalHold: default,
-                premiumPageBlobAccessTier: default,
                 async: true,
                 cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
@@ -620,7 +616,6 @@ namespace Azure.Storage.Blobs.Specialized
                 options?.Tags,
                 options?.ImmutabilityPolicy,
                 options?.LegalHold,
-                options?.PremiumPageBlobAccessTier,
                 async: false,
                 cancellationToken)
                 .EnsureCompleted();
@@ -667,7 +662,6 @@ namespace Azure.Storage.Blobs.Specialized
                 options?.Tags,
                 options?.ImmutabilityPolicy,
                 options?.LegalHold,
-                options?.PremiumPageBlobAccessTier,
                 async: true,
                 cancellationToken)
                 .ConfigureAwait(false);
@@ -726,7 +720,6 @@ namespace Azure.Storage.Blobs.Specialized
                 tags: default,
                 immutabilityPolicy: default,
                 legalHold: default,
-                premiumPageBlobAccessTier: default,
                 async: false,
                 cancellationToken: cancellationToken)
                 .EnsureCompleted();
@@ -785,7 +778,6 @@ namespace Azure.Storage.Blobs.Specialized
                 tags: default,
                 immutabilityPolicy: default,
                 legalHold: default,
-                premiumPageBlobAccessTier: default,
                 async: true,
                 cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
@@ -829,10 +821,6 @@ namespace Azure.Storage.Blobs.Specialized
         /// Note that is parameter is only applicable to a blob within a container that
         /// has immutable storage with versioning enabled.
         /// </param>
-        /// <param name="premiumPageBlobAccessTier">
-        /// Optional.  Sets the page blob tiers on the blob.
-        /// This is only supported for page blobs on premium accounts.
-        /// </param>
         /// <param name="async">
         /// Whether to invoke the operation asynchronously.
         /// </param>
@@ -858,7 +846,6 @@ namespace Azure.Storage.Blobs.Specialized
             Tags tags,
             BlobImmutabilityPolicy immutabilityPolicy,
             bool? legalHold,
-            PremiumPageBlobAccessTier? premiumPageBlobAccessTier,
             bool async,
             CancellationToken cancellationToken)
         {
@@ -884,7 +871,6 @@ namespace Azure.Storage.Blobs.Specialized
                         conditions,
                         immutabilityPolicy,
                         legalHold,
-                        premiumPageBlobAccessTier,
                         async,
                         cancellationToken,
                         $"{nameof(PageBlobClient)}.{nameof(CreateIfNotExists)}")
@@ -949,10 +935,6 @@ namespace Azure.Storage.Blobs.Specialized
         /// Note that is parameter is only applicable to a blob within a container that
         /// has immutable storage with versioning enabled.
         /// </param>
-        /// <param name="premiumPageBlobAccessTier">
-        /// Optional.  Sets the page blob tiers on the blob.
-        /// This is only supported for page blobs on premium accounts.
-        /// </param>
         /// <param name="async">
         /// Whether to invoke the operation asynchronously.
         /// </param>
@@ -982,7 +964,6 @@ namespace Azure.Storage.Blobs.Specialized
             PageBlobRequestConditions conditions,
             BlobImmutabilityPolicy immutabilityPolicy,
             bool? legalHold,
-            PremiumPageBlobAccessTier? premiumPageBlobAccessTier,
             bool async,
             CancellationToken cancellationToken,
             string operationName = null)
@@ -1018,7 +999,7 @@ namespace Azure.Storage.Blobs.Specialized
                         response = await PageBlobRestClient.CreateAsync(
                             contentLength: 0,
                             blobContentLength: size,
-                            tier: premiumPageBlobAccessTier,
+                            tier: null,
                             blobContentType: httpHeaders?.ContentType,
                             blobContentEncoding: httpHeaders?.ContentEncoding,
                             blobContentLanguage: httpHeaders?.ContentLanguage,
@@ -1049,7 +1030,7 @@ namespace Azure.Storage.Blobs.Specialized
                         response = PageBlobRestClient.Create(
                             contentLength: 0,
                             blobContentLength: size,
-                            tier: premiumPageBlobAccessTier,
+                            tier: null,
                             blobContentType: httpHeaders?.ContentType,
                             blobContentEncoding: httpHeaders?.ContentEncoding,
                             blobContentLanguage: httpHeaders?.ContentLanguage,
@@ -3733,7 +3714,6 @@ namespace Azure.Storage.Blobs.Specialized
                 options?.DestinationConditions,
                 options?.SourceConditions,
                 options?.SourceAuthentication,
-                options?.SourceShareTokenIntent,
                 async: false,
                 cancellationToken)
                 .EnsureCompleted();
@@ -3797,7 +3777,6 @@ namespace Azure.Storage.Blobs.Specialized
                 options?.DestinationConditions,
                 options?.SourceConditions,
                 options?.SourceAuthentication,
-                options?.SourceShareTokenIntent,
                 async: true,
                 cancellationToken)
                 .ConfigureAwait(false);
@@ -3881,7 +3860,6 @@ namespace Azure.Storage.Blobs.Specialized
                 conditions,
                 sourceConditions,
                 sourceAuthentication: default,
-                sourceTokenIntent: default,
                 async: false,
                 cancellationToken)
                 .EnsureCompleted();
@@ -3965,7 +3943,6 @@ namespace Azure.Storage.Blobs.Specialized
                 conditions,
                 sourceConditions,
                 sourceAuthentication: default,
-                sourceTokenIntent: default,
                 async: true,
                 cancellationToken)
                 .ConfigureAwait(false);
@@ -4019,10 +3996,6 @@ namespace Azure.Storage.Blobs.Specialized
         /// <param name="sourceAuthentication">
         /// Optional. Source authentication used to access the source blob.
         /// </param>
-        /// <param name="sourceTokenIntent">
-        /// Optional, only applicable (but required) when the source is Azure Storage Files and using token authentication.
-        /// Used to indicate the intent of the request.
-        /// </param>
         /// <param name="async">
         /// Whether to invoke the operation asynchronously.
         /// </param>
@@ -4048,7 +4021,6 @@ namespace Azure.Storage.Blobs.Specialized
             PageBlobRequestConditions conditions,
             PageBlobRequestConditions sourceConditions,
             HttpAuthorization sourceAuthentication,
-            FileShareTokenIntent? sourceTokenIntent,
             bool async,
             CancellationToken cancellationToken)
         {
@@ -4109,7 +4081,6 @@ namespace Azure.Storage.Blobs.Specialized
                             sourceIfMatch: sourceConditions?.IfMatch?.ToString(),
                             sourceIfNoneMatch: sourceConditions?.IfNoneMatch?.ToString(),
                             copySourceAuthorization: sourceAuthentication?.ToString(),
-                            fileRequestIntent: sourceTokenIntent,
                             cancellationToken: cancellationToken)
                             .ConfigureAwait(false);
                     }
@@ -4139,7 +4110,6 @@ namespace Azure.Storage.Blobs.Specialized
                             sourceIfMatch: sourceConditions?.IfMatch?.ToString(),
                             sourceIfNoneMatch: sourceConditions?.IfNoneMatch?.ToString(),
                             copySourceAuthorization: sourceAuthentication?.ToString(),
-                            fileRequestIntent: sourceTokenIntent,
                             cancellationToken: cancellationToken);
                     }
 
@@ -4187,8 +4157,6 @@ namespace Azure.Storage.Blobs.Specialized
         /// a failure occurs.
         /// If multiple failures occur, an <see cref="AggregateException"/> will be thrown,
         /// containing each failure instance.
-        ///
-        /// During the disposal of the returned write stream, an exception may be thrown.
         /// </remarks>
 #pragma warning disable AZC0015 // Unexpected client method return type.
         public virtual Stream OpenWrite(
@@ -4229,8 +4197,6 @@ namespace Azure.Storage.Blobs.Specialized
         /// a failure occurs.
         /// If multiple failures occur, an <see cref="AggregateException"/> will be thrown,
         /// containing each failure instance.
-        ///
-        /// During the disposal of the returned write stream, an exception may be thrown.
         /// </remarks>
 #pragma warning disable AZC0015 // Unexpected client method return type.
         public virtual async Task<Stream> OpenWriteAsync(
@@ -4274,8 +4240,6 @@ namespace Azure.Storage.Blobs.Specialized
         /// a failure occurs.
         /// If multiple failures occur, an <see cref="AggregateException"/> will be thrown,
         /// containing each failure instance.
-        ///
-        /// During the disposal of the returned write stream, an exception may be thrown.
         /// </remarks>
         private async Task<Stream> OpenWriteInternal(
             bool overwrite,
@@ -4308,7 +4272,6 @@ namespace Azure.Storage.Blobs.Specialized
                         conditions: options?.OpenConditions,
                         immutabilityPolicy: default,
                         legalHold: default,
-                        premiumPageBlobAccessTier: default,
                         async: async,
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
@@ -4344,7 +4307,6 @@ namespace Azure.Storage.Blobs.Specialized
                             conditions: options?.OpenConditions,
                             immutabilityPolicy: default,
                             legalHold: default,
-                            premiumPageBlobAccessTier: default,
                             async: async,
                             cancellationToken: cancellationToken)
                             .ConfigureAwait(false);

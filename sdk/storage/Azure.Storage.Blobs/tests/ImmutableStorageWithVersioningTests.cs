@@ -18,7 +18,6 @@ using Azure.Storage.Blobs.Tests;
 using Azure.Storage.Sas;
 using Azure.Storage.Test;
 using Azure.Storage.Test.Shared;
-using Azure.Storage.Tests.Shared;
 using NUnit.Framework;
 
 namespace Azure.Storage.Blobs.Test
@@ -484,7 +483,7 @@ namespace Azure.Storage.Blobs.Test
 
             BlobImmutabilityPolicy immutabilityPolicy = new BlobImmutabilityPolicy
             {
-                ExpiresOn = Recording.UtcNow.AddMinutes(5),
+                ExpiresOn = Recording.UtcNow.AddSeconds(1),
                 PolicyMode = BlobImmutabilityPolicyMode.Locked
             };
 
