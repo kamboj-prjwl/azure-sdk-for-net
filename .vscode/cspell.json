@@ -153,7 +153,6 @@
     "retriable",
     "Serp",
     "Servfail",
-    "SEVSNP",
     "setsas",
     "signalr",
     "signup",
@@ -298,7 +297,8 @@
         "Wdac",
         "Adou",
         "Drtm",
-        "Hvci"
+        "Hvci",
+        "SEVSNP"
       ]
     },
     {
